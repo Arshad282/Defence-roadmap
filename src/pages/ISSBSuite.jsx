@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../App';
-import { issb } from '../data/questions';
+import { issbData as issb } from '../data/issb_data';
 import { formatTime } from '../utils/adaptive';
 
 const MODULES = [
