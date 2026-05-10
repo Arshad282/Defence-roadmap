@@ -9,9 +9,11 @@ export default function Results() {
 
   if (!result) return (
     <div className="page">
-      <div className="container" style={{ textAlign: 'center', paddingTop: '80px' }}>
-        <p style={{ color: 'var(--text-secondary)' }}>No results yet. Take an exam first!</p>
-        <Link to="/exam" className="btn btn-primary" style={{ marginTop: '24px' }}>Start Exam</Link>
+      <div className="container" style={{ textAlign: 'center', paddingTop: '120px' }}>
+        <div style={{ fontSize: '4rem', marginBottom: '20px' }}>📊</div>
+        <h2 style={{ fontFamily: 'var(--font-main)', marginBottom: '12px', color: 'var(--text-secondary)' }}>No Results Yet</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>Complete an exam to see your score and analysis here.</p>
+        <Link to="/exam" className="btn btn-primary">🚀 Start Exam</Link>
       </div>
     </div>
   );
@@ -94,25 +96,24 @@ export default function Results() {
         <div className="card" style={{ padding: '28px', marginBottom: '28px' }}>
           <h3 style={{ fontFamily: 'var(--font-main)', marginBottom: '20px' }}>📋 Answer Review</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {answers.map((ans, idx) => {
-              const q = userStats.history.find(h => h.questionId === ans.questionId);
-              return (
-                <div key={ans.questionId} style={{
-                  padding: '16px', borderRadius: '10px',
-                  background: ans.correct ? 'var(--success-dim)' : 'var(--red-dim)',
-                  border: `1px solid ${ans.correct ? 'rgba(0,255,136,0.2)' : 'rgba(230,57,70,0.2)'}`,
-                }}>
-                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px' }}>
-                    <span>{ans.correct ? '✅' : '❌'}</span>
-                    <span style={{ fontFamily: 'var(--font-main)', fontWeight: 600, fontSize: '0.9rem' }}>Q{idx + 1} — {ans.topic}</span>
-                  </div>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                    Your answer: <strong style={{ color: ans.correct ? 'var(--success)' : 'var(--red)' }}>{ans.selected}</strong>
-                    {!ans.correct && <span style={{ marginLeft: '8px', color: 'var(--success)' }}>✓ {ans.correctAnswer}</span>}
-                  </div>
+            {answers.map((ans, idx) => (
+              <div key={ans.questionId || idx} style={{
+                padding: '16px', borderRadius: '10px',
+                background: ans.correct ? 'var(--success-dim)' : 'var(--red-dim)',
+                border: `1px solid ${ans.correct ? 'rgba(0,255,136,0.2)' : 'rgba(230,57,70,0.2)'}`,
+              }}>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '6px' }}>
+                  <span>{ans.correct ? '✅' : '❌'}</span>
+                  <span style={{ fontFamily: 'var(--font-main)', fontWeight: 600, fontSize: '0.9rem' }}>Q{idx + 1} — {ans.topic}</span>
                 </div>
-              );
-            })}
+                <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                  Your answer: <strong style={{ color: ans.correct ? 'var(--success)' : 'var(--red)' }}>{ans.selected || '(skipped)'}</strong>
+                  {!ans.correct && ans.correctAnswer && (
+                    <span style={{ marginLeft: '10px', color: 'var(--success)' }}>✓ Correct: {ans.correctAnswer}</span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

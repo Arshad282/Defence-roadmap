@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 import { getAllQuestions } from '../data/questions';
@@ -28,10 +28,12 @@ export default function ExamRoom() {
   const [loading, setLoading] = useState(false);
   const [questionSource, setQuestionSource] = useState('static');
   const [loadingMsg, setLoadingMsg] = useState('');
+  const timeLeftRef = useRef(0);
 
   useEffect(() => {
     if (phase !== 'exam') return;
     if (timeLeft <= 0) { finishExam(); return; }
+    timeLeftRef.current = timeLeft;
     const t = setTimeout(() => setTimeLeft(t => t - 1), 1000);
     return () => clearTimeout(t);
   }, [timeLeft, phase]);
@@ -108,7 +110,7 @@ export default function ExamRoom() {
         totalExams: prev.totalExams + 1,
         history: [...prev.history, ...finalAnswers],
         scores: newScores,
-        lastResult: { score, correct, total: finalAnswers.length, config, answers: finalAnswers, timeUsed: config.time - timeLeft },
+        lastResult: { score, correct, total: finalAnswers.length, config, answers: finalAnswers, timeUsed: config.time - timeLeftRef.current },
       };
     });
     navigate('/results');

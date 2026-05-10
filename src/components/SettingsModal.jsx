@@ -103,7 +103,7 @@ export default function SettingsModal({ onClose }) {
           </div>
           {[
             '✅ With API key → Gemini AI generates fresh questions every exam',
-            '🔄 If AI fails → Falls back to 80+ static questions instantly',
+            '🔄 If AI fails → Falls back to 116+ static questions instantly',
             '🔒 Key saved in browser — never sent to any server',
           ].map(t => (
             <div key={t} style={{ fontSize: '0.83rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>{t}</div>
