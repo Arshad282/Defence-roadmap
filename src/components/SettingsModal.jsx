@@ -25,7 +25,7 @@ export default function SettingsModal({ onClose }) {
       padding: '24px',
     }} onClick={onClose}>
       <div onClick={e => e.stopPropagation()} style={{
-        background: '#0d1526', border: '1px solid rgba(0,207,255,0.2)',
+        background: '#ffffff', border: '1px solid rgba(0,0,0,0.10)',
         borderRadius: '20px', padding: '40px', maxWidth: '520px', width: '100%',
         boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
       }}>
